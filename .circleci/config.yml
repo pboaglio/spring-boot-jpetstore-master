@@ -40,8 +40,17 @@ jobs:
       # run tests!
       # - run: gradle test
   test:
+    steps:
+      - checkout
+      - run: echo "TESTING pipelile <<pipeline.id>>"
   validate:
+      steps:
+      - checkout
+      - run: echo "Validate pipelile <<pipeline.id>>"
   deploy:
+    steps:
+      - checkout
+      - run: echo "TESTING pipelile <<pipeline.id>>"
 
 
   
