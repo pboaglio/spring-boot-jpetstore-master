@@ -43,8 +43,6 @@ jobs:
   validate:
   deploy:
 
-workflow:
-  -build
-  -test
-  -validate
-  -deploy
+
+  
+  
