@@ -38,20 +38,29 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
 
       # run tests!
-      - run: gradle test
+    #  - run: gradle test
   test:
     docker:
       - image: cimg/openjdk:15.0.2
     steps:
       - checkout
-      - run: echo "TESTING pipelile <<pipeline.id>>"
-    requires:
-
+      - run: gradle test
+  deploy:
+    docker:
+      - image: cimg/openjdk:15.0.2
+    steps:
+      - checkout
+      - run: echo "Deploy"
 
 workflows:
- build_and_test:
+ build-test-validate-deploy:
     jobs:
       - build
-      - test
-
+      - test:
+          requires:
+            - build
+      - deploy:
+          type: approval
+          requires:
+            - test
 
