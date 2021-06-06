@@ -40,18 +40,10 @@ jobs:
       # run tests!
       # - run: gradle test
   test:
+    docker:
+      - image: cimg/openjdk:16.0.0
     steps:
       - checkout
       - run: echo "TESTING pipelile <<pipeline.id>>"
-  validate:
-      steps:
-      - checkout
-      - run: echo "Validate pipelile <<pipeline.id>>"
-  deploy:
-    steps:
-      - checkout
-      - run: echo "TESTING pipelile <<pipeline.id>>"
-
-
   
   
