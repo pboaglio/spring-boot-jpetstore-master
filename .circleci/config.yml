@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/openjdk:11.0.0
+      - image: cimg/openjdk:16.0.0
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -38,16 +38,24 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle.kts" }}
 
       # run tests!
+    #  - run: gradle test
   test:
     docker:
       - image: cimg/openjdk:16.0.0
     steps:
       - checkout
       - run: echo "TESTING pipelile <<pipeline.id>>"
-      - run: gradle test
+    requires:
+
 
 workflows:
-  pipeline:
+ build_and_test:
     jobs:
       - build
       - test
+      - validate:
+        type: approval
+        requires:
+          - build
+          - test
+
